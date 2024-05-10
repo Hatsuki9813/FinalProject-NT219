@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/delete (1).png</file>
+    <file>icons/search (1).png</file>
+    <file>icons/settings.png</file>
+    <file>icons/search.png</file>
+    <file>icons/home.png</file>
+    <file>icons/playlist.png</file>
+    <file>icons/question.png</file>
+    <file>icons/setting.png</file>
+    <file>icons/tv.png</file>
+    <file>icons/video-camera.png</file>
+    <file>icons/user (1).png</file>
+  </qresource>
+</RCC>
