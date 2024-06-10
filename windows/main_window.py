@@ -5,6 +5,7 @@ from windows.Dialog import CustomDialog
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import QSize
 import pymysql
+import os
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -218,19 +219,26 @@ class Ui_MainWindow(QMainWindow):
         dlg = CustomDialog(self)
         dlg.exec()
     def load_movies(self):
-        connection = pymysql.connect(host='localhost', user='root', password='9813', db='appdatabase', cursorclass=pymysql.cursors.DictCursor)
+        connection = pymysql.connect(host='192.168.240.26', user='nguoidung', password='9813', db='appdb', port=3306 ,cursorclass=pymysql.cursors.DictCursor)
         with connection.cursor() as cursor:
             sql = "SELECT * FROM video"
             cursor.execute(sql)
             result = cursor.fetchall()
             for row in result:
-                thumbnail_path = row['thumbnail']
+                image_blob = row['thumbnail']
                 video_path = row['link']
+                video_name = row['videoname']
+                iconpath = 'content'
+                icon = os.path.join(iconpath, f"{video_name}icon.jpg")
+                print(os.path.abspath((icon)))
+                with open(icon, "wb") as file:
+                    file.write(image_blob)
                 item = QListWidgetItem()
                 self.listWidget.addItem(item)
-                item.setIcon((QIcon(QPixmap("E:\\2023-2024\\NT219Project\\testvideo\\poster.jpg"))))
+                item.setIcon((QIcon(QPixmap(icon))))
                 self.listWidget.setIconSize(QSize(90, 90))
-                item.setText("The Last Of Us")  # Không hiển thị văn bản
-                item.setData(QtCore.Qt.ItemDataRole.UserRole, video_path)
+                item.setText(video_name)  # Không hiển thị văn bản
+                item.setData(QtCore.Qt.ItemDataRole.UserRole, video_name)  
+    
 
        
